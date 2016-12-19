@@ -1,0 +1,41 @@
+<div class="container">
+
+  <form id="frm-email" class="async-submit" method="POST">
+    <div class="form-group">
+      <label for="mailto">Receiver:</label>
+      <input type="email" class="form-control" id="mailto" name="mailto" value="{{ email.to }}">
+    </div>
+    <div class="form-group">
+      <label for="displayname">Subject:</label>
+      <input type="string" class="form-control" id="subject" name="subject" value="{{ email.subject }}">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Message:</label>
+      <textarea class="form-control" id="message" name="message">{{ email.message }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" onclick="sendEmail()" >Send</button>
+  </form>
+
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+  $('#frm-email').submit(function(evt){ evt.preventDefault(); })
+})
+
+function sendEmail() {
+  var frm = $('#frm-email');
+  submitForm(frm, 
+    function (resp, b, c) {
+      console.log(resp);
+      alert('Sent email');
+    },
+    function (resp, b, c) {
+      console.log('fnFail: ' + resp);  
+    });
+  
+  return false;
+}
+   </script>
+

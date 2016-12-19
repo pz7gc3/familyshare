@@ -1,0 +1,69 @@
+{{>navbar}}
+
+<div class="container">
+
+  <h1>About Family Share</h1>
+  <div class="well">
+    <p>
+    The <em>Family Share</em> application is a learning experience. 
+    </p>
+
+    <p>
+      Since <a href="https://github.com/pz7gc3">I</a> have decided 
+      to learn more about hosting webapplications in the <em>cloud</em>
+      I decided to try out <a href="https://portal.azure.com/">Azure</a> 
+    </p>
+  </div>
+
+  <h1>Geek Stuff</h1>
+  <div class="well">
+    <p>
+      I have built it using <a href="https://nodejs.org/">NodeJS</a> and
+      the backend is currently implemented using a <a href="https://www.mongodb.com/">Mongo</a>
+      database. It has been an interesting process. I've learned how setup an environemnt 
+      (i.e. a local <code>git</code> repository) that I use to push the site to the 
+      cloud. My cloud of choice was <a href="https://www.azure.com/">Azure</a>. Microsoft
+      offers a 30-day trial when You can try out pretty much anything. After that You can still
+      host up to 10 websites. It has been interesting to learn how <em>Azure</em> works - it has 
+      certainly not been without issues. But Microsoft do provide a lot of learning material and 
+      the documentation is often pretty good. If You are interested in Microsoft technologies You 
+      should check out their <a href="https://mva.microsoft.com/">virtual academy</a> - I have found
+      many interesting courses there. 
+    </p>
+    <p>
+      It is nice develop and tune Your site locally before pushing it to the cloud. However,
+      I have learned that it is a good habit to deploy often. It has turned out that stuff that 
+      works well locally does not work that smoothly in the cloud. Maybe I should start
+      a blog describing all the steps? &rarr; well, I have to think about that...
+      <br><br>
+      In the beginning, before I learned to use modern NodeJS runtimes in the 
+      cloud, I would often write ES6 code that worked nicelly on my dev 
+      machine but not in the cloud. <em>Bummer!!</em>
+    </p>
+    <p>
+      I hesitated which <mark>view engine</mark> I'd use with Node. I went for <code>express-handlebars</code>.
+      It is convenient with a syntax that is very close to html. It makes it easy to grab
+      sample html (for instance from <a href="http://getbootstrap.com/getting-started/#examples">http://getbootstrap.com</a>).
+      BTW, a site that I often use for <code>html</code>, <code>CSS</code> and <code>JavaScript</code> references is
+      <a href="http://www.w3schools.com/">w3schools</a>. Their bootstrap stuff is really easy to grok (for instance,
+      the page with <a href="http://www.w3schools.com/Bootstrap/bootstrap_ref_comp_glyphs.asp">Bootstrap glyphs</a> is 
+      quite usefull).
+    </p>
+    <p>
+      However, I've stumbled upon many limitations and shortcomings using <em>Handlebars</em> 
+      so I think that it would be a nice excercise to rewrite the UI using <a href="https://angular.io/">Angular 2</a>.
+      I'm quite used to let <code>jQuery</code> work its magic so a simpler templating engine seemed like 
+      an good idea.  
+    </p>
+    <p>
+      The authentication is implemented using the <a href="http://passportjs.org/"><code>passportjs</code></a>
+      libraries. Once you get the hang of it it works like a charm.
+    </p>
+    <p>
+      The backend database is implemented on Mongo using the 
+      <a href="http://mongoosejs.com/"><code>mongoosejs</code></a> library. In case You 
+      wonder, I chose <code>mongoose</code> simply because many tutorials use it. The 
+      documentation is quite good IMHO. I feel tempted to rewrite using a different 
+      NoSQL database - just to get a feel for the difference. I'll save that for later though.
+    </p>
+</div>

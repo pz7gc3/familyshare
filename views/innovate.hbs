@@ -1,0 +1,185 @@
+{{>navbar}}
+
+<div id="myIdeas" class="container"{{#unless isDefault}} style="display: none"{{/unless}} >
+
+    {{#if ideas.length}}
+
+    <div class="col-md-8">
+
+        {{#each ideas}}
+        <div class="row row-space">
+          <div class="col-md-6">
+            <a href="/innovate/{{_id}}">
+            <b>{{caption}}</b>
+            </a>
+          </div>
+          <div class="col-md-2">
+            {{created_date}}
+          </div>
+          <div class="col-md-4">
+            <a class="btn btn-primary btn-sm" href="/innovate/{{_id}}">
+              <span class="glyphicon glyphicon-edit"></span> Edit
+            </a>
+            <!--
+            <a class="btn btn-danger btn-sm" href="/innovate/{{_id}}">
+              <span class="glyphicon glyphicon-plus"></span> Edit
+            </a>
+            -->
+            <button type="button" class="btn btn-danger btn-sm" 
+                    onclick="deleteIdea('{{_id}}')">
+                    <span class="glyphicon glyphicon-trash"></span> Delete</button>
+          </div>
+        </div>
+        {{/each}}
+
+      <div class="row" style="padding-top: 1.5em">
+        <a class="btn btn-primary btn-sm" href="/innovate/new">
+          <span class="glyphicon glyphicon-plus"></span> Add Idea
+        </a>
+      </div>
+
+    </div>
+    <div class="col-md-4">
+      <div class="well hidden-xs hidden-sm">
+        <p>
+          Cool, you already have
+          some creativity flowing.
+        </p>
+        <p>
+          More helptexts to come.
+        </p>
+      </div>
+    </div>
+
+    {{ else }}
+    <div class="well">
+      Bummer, You do not have any ideas, innovations or thought on Your mind
+      just yet. <em>No worries though</em> They will come to yoy once You get 
+      in the right mood.
+    </div>
+    <div class="row" style="padding-top: 1.5em">
+      <a class="btn btn-primary btn-sm" href="/innovate/new">
+        <span class="glyphicon glyphicon-plus"></span> Add Idea
+      </a>
+    </div>    
+    {{/if}}
+
+</div>
+
+{{#if isDetails}}
+<div id="newIdea" class="container"{{#unless isDetails}} style="display: none"{{/unless}}>
+
+  <h3>{{ idea.caption }}</h3>
+  {{#if idea.url}}
+  <p>
+    <a href="{{idea.url}}">{{ idea.url }}</a>
+  </p>
+  {{/if}}
+  <p>
+    {{ idea.description }}
+  </p>
+
+</div>
+{{/if}}
+
+{{#if isNew}}
+<div id="newIdea" class="container"{{#unless isNew}} style="display: none"{{/unless}}>
+
+  <!--
+  <div class="well">
+    Great, You want to enter a new idea innovation. Note it is just a
+    way to collect Your thoughts.
+  </div>
+  -->
+
+  <form id="frm-idea" class="async-submit" method="POST" onsubmit="submitIdea()">
+    <div class="form-group">
+      <label for="caption">Caption:</label>
+      <input type="text" class="form-control" 
+             id="caption" name="caption"
+             placeholder="What is Your idea about?" 
+             value="{{ idea.caption }}">
+    </div>
+
+    <div class="form-group">
+      <label for="project">Project:</label> (optional)
+      <input type="string" class="form-control" 
+             id="project" name="project" value="{{ idea.project }}"
+             placeholder="for instance, 'Gifts', 'Learning', 'Reading'">
+    </div>
+
+    <div class="form-group">
+      <label for="url">Keywords:</label> (optional)
+      <input type="text" class="form-control" id="keywords" name="keywords"
+             value="{{ idea.keywords }}"
+             placeholder="Comma sparated list of keywords">
+    </div>
+
+    <div class="form-group">
+      <label for="url">Url:</label>
+      <input type="text" class="form-control" id="url" name="url"
+             value="{{ idea.url }}">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" placeholder="Discribe your idea here..."
+        id="description" name="description"></textarea>  
+    </div>
+
+    <div class="form-group">
+    {{#if idea.isNew }}
+    <input type="hidden" value="new" id="_id" name="_id">
+    <button type="submit" class="btn btn-primary" 
+            onclick="createNewIdea()" >Create</button>
+    {{ else }}
+    <input type="hidden" value="{{ idea._id }}" id="_id" name="_id">
+    <button type="submit" class="btn btn-primary" 
+            onclick="updateIdea()" >Save</button>
+    {{/if}}
+    </div>
+  </form>
+
+  <p></p>
+  <div id="dlgsuccess" class="alert alert-success" style="display: none">
+    The idea was successfully saved.
+  </div>
+
+</div>
+{{/if}}
+
+
+  <script type="text/javascript">
+
+$(function() {
+  $('#frm-profile').submit(function(evt){ evt.preventDefault(); })
+})
+
+function cbShowSuccess() {
+  var info = $('#dlgsuccess');
+  info.show();
+  setTimeout(function() {
+    info.fadeOut();
+  }, 3000)
+}
+
+function deleteIdea(id) {
+  $.ajax({
+    type: "DELETE",
+    url: "/innovate/"  + id,
+    success: function(msg){
+        location.reload(true);
+    }
+  });
+}
+
+function updateIdea() {
+  var frm = $('#frm-idea');
+  submitForm(frm, cbShowSuccess,
+    function (resp, b, c) {
+      console.log('fnFail: ' + resp);  
+    });
+  
+  return false;
+}
+   </script>
